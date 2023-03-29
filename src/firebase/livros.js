@@ -1,5 +1,11 @@
-
-import { addDoc, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import {
+    addDoc,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    updateDoc
+} from "firebase/firestore";
 import { livrosCollection } from "./collections";
 
 export async function addLivro(data) {
@@ -17,13 +23,13 @@ export async function getLivros() {
 
 export async function getLivro(id) {
     const document = await getDoc(doc(livrosCollection, id));
-    return{...document.data(), id: document.id}
+    return {...document.data(), id: document.id};
 }
 
 export async function updateLivro(id, data) {
-    await updateDoc(doc (livrosCollection, id), data);
+    await updateDoc(doc(livrosCollection, id), data);
 }
 
 export async function deleteLivro(id) {
-    await deleteDoc(doc(livrosCollection, id))
+    await deleteDoc(doc(livrosCollection, id));
 }

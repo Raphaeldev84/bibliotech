@@ -3,7 +3,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { addLivro, getLivro, updateLivro } from "../../firebase/livros";
+import { getLivro, updateLivro } from "../../firebase/livros";
 
 export function EditarLivro() {
 
@@ -21,9 +21,9 @@ export function EditarLivro() {
 
     useEffect(() => {
         getLivro(id).then(livro => {
-            reset(livro)
-        })       
-    }, [id, reset])
+            reset(livro);
+        })
+    }, [id, reset]);
 
     return (
         <div className="editar-livro">
