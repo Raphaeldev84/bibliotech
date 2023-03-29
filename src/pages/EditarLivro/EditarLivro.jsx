@@ -1,25 +1,34 @@
+import { useEffect } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { addLivro } from "../../firebase/livros";
+import { useNavigate, useParams } from "react-router-dom";
+import { addLivro, getLivro } from "../../firebase/livros";
 
-export function AdicionarLivro() {
+export function EditarLivro() {
+
+    const {id} = useParams();
 
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate();
 
     function onSubmit(data) {
         addLivro(data).then(() => {
-            toast.success("Livro adicionado com sucesso!", {duration: 2000, position: "bottom-right"})
+            toast.success("Livro editado com sucesso!", {duration: 2000, position: "bottom-right"})
             navigate("/livros");
         })
     }
 
+    useEffect(() => {
+        getLivro(id).then(livro => {
+            console.log(livro)
+        })       
+    }, [])
+
     return (
-        <div className="adicionar-livro">
+        <div className="editar-livro">
             <Container>
-                <h1>Adicionar livro</h1>
+                <h1>Editar livro</h1>
                 <hr />
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -57,7 +66,7 @@ export function AdicionarLivro() {
                             {errors.urlCapa?.message}
                         </Form.Text>
                     </Form.Group>
-                    <Button type="submit" variant="success">Adicionar</Button>
+                    <Button type="submit" variant="success">Editar</Button>
                 </Form>
             </Container>
         </div>
